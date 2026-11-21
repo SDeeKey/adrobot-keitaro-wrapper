@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adrobot · Campaign workspace</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">adrobot<span> / campaign workspace</span></a><span id="mode" class="badge">Подключение…</span></header>
+  <main>
+    <section class="intro"><div><span class="eyebrow">KEITARO WORKSPACE</span><h1>Кампании под контролем.</h1><p>Создавайте маршруты и управляйте распределением трафика.</p></div><span class="intro-mark" aria-hidden="true">↗</span></section>
+    <div id="message" role="status" aria-live="polite" hidden></div>
+    <div class="workspace">
+      <aside>
+        <section class="card"><div class="section-title"><h2>Новая кампания</h2><span class="step">01</span></div>
+          <form id="create-form">
+            <label>Название<input name="name" required maxlength="180" placeholder="summer_launch" autocomplete="off"></label><small id="prefix-hint"></small>
+            <div class="two-fields"><label>Код страны<input name="country" required minlength="2" maxlength="2" pattern="[A-Za-z]{2}" value="DE" autocomplete="off"></label><label>Оффер<select name="offer_id" id="create-offer" required></select></label></div>
+            <label>Домен<select name="domain_id" id="domain" required></select></label>
+            <label>Группа<select name="group_id" id="group" required></select></label>
+            <label>Источник<select name="traffic_source_id" id="source" required></select></label>
+            <div class="route-preview"><span>01 · Выбранная страна → Google</span><span>02 · Остальной трафик → Оффер</span></div>
+            <button type="submit" class="primary">Создать кампанию <span aria-hidden="true">↗</span></button>
+          </form>
+        </section>
+        <section class="card campaign-list"><div class="section-title"><h2>Мои кампании</h2><button id="reload-list" class="icon-button" aria-label="Обновить список кампаний">↻</button></div><div id="campaigns"><p class="muted">Загрузка…</p></div>
+          <form id="open-form"><label>Открыть по ID<input name="campaign_id" type="number" min="1" required placeholder="ID кампании"></label><button type="submit" class="secondary">Открыть</button></form>
+        </section>
+      </aside>
+      <section class="editor card" aria-label="Редактор кампании">
+        <div id="empty" class="empty"><div class="empty-symbol" aria-hidden="true">⇄</div><h2>Выберите кампанию</h2><p>Откройте существующую или создайте новую.<br>Потоки, офферы и доли появятся здесь.</p></div>
+        <div id="campaign-editor" hidden>
+          <div class="editor-heading"><div><span id="campaign-meta" class="eyebrow"></span><h2 id="campaign-name"></h2></div><button id="refresh" class="secondary">↻ Обновить из Keitaro</button></div>
+          <div class="editor-toolbar"><label class="checkbox"><input type="checkbox" id="show-removed"> Показывать удалённые офферы</label><button id="load-stats" class="text-button">Статистика за сегодня (UTC)</button></div>
+          <p id="stats" class="muted"></p><div id="streams"></div>
+          <p class="editor-note">Изменения сохраняются сразу. Закреплённые доли сохраняются при пересчёте; остальные равномерно делят остаток до 100%.</p>
+        </div>
+      </section>
+    </div>
+    <footer>ADROBOT <span>FastAPI · SQLAlchemy · Keitaro Admin API</span><a href="/docs" target="_blank" rel="noopener">API документация ↗</a></footer>
+  </main>
+</body>
+</html>
